@@ -8,12 +8,25 @@
 </head>
 <body class="bg-[rgb(197,199,203)]">
   <div class="container mx-auto">
-    <div class="main-weather-box my-8">
+    <div class="main-weather-box my-8 flex">
       <div class="weather-box1 w-[25%] bg-white rounded-tl-3xl">
-        <button class="fa-solid fa-magnifying-glass text-xl ml-10 search-btn" style="color: #000000;"></button>
-        <input type="text" placeholder="Search for a Places..." class="text-black text-base">
+        <button class="fa-solid fa-magnifying-glass text-xl ml-16 mt-10 search-btn" style="color: #000000;"></button>
+        <input type="text" placeholder="Search for a Places..." class="text-black text-base placeholder-black ml-3 outline-none">
+        <div class="weather-img w-[60%] mt-16 ml-12">
+          <img src="assets/sunlight.png" class="w-full">
+        </div>
+        <p class="mt-10 ml-8 font-Roboto text-7xl text-black temp">0<span>°C</span></p>
+        <p class="mt-4 ml-8 font-Lobster text-black text-2xl description">Sunny</p>
+        <p class="mt-6 ml-8 font-Roboto text-2xl text-black date">Sunday, <span class="font-Roboto text-base text-gray-600 time">16:00</span></p>
+        <hr class="w-[95%] mx-auto mt-4">
+        <p>hello</p>
       </div>
-      <div class="weather-box2"></div>
+      <div class="weather-box2 w-[75%] bg-[rgb(213,214,218)]">
+        <h3 class="mt-8 ml-16 font-bold font-Roboto text-2xl">Week</h3>
+        <div class="week-cards">
+          
+        </div>
+      </div>
     </div>
   </div>
 
