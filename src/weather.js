@@ -25,16 +25,17 @@ locationInput.addEventListener('keyup', (e)=> {
 
 function getWeather() {
   const city = locationInput.value.trim()
+  const image = document.querySelector('.weather-icon');
+  const today = document.querySelector('.date');
+  let time = document.querySelector('.time');
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIkey}`;
 
   fetch(url)
     .then((response) => response.json()).then(json => {
 
-      const image = document.querySelector('.weather-icon');
-
       switch (json.weather[0].main) {
         case 'Clear':
-          image.src = 'assets/sunlight.png';
+          image.src = 'assets/sun.png';
           break;
           
         case 'Clouds':
@@ -42,27 +43,30 @@ function getWeather() {
           break;
 
         case 'Rain':
-          image.src = 'assets/rain.png';
+          image.src = 'assets/heavy-rain.png';
           break;
         
         case 'Snow':
-          image.src = 'assets/windy.png';
+          image.src = 'assets/snow.png';
           break;
 
         case 'Drizzle':
-          image.src = 'assets/windy-rain.png';
+          image.src = 'assets/drizzle.png';
           break;
 
         case 'Thunderstorm':
-          image.src = 'assets/cloudy-cloud-rain.png'
+          image.src = 'assets/thunderstorm.png'
           break;
 
         default:
-          image.src = 'assets/sunlight.png';
+          image.src = 'assets/sun.png';
           break;
       }
 
       temps.innerHTML = `${Math.round(json.main.temp)}<span>°C</span>`;
+      description.innerHTML = `${json.weather[0].description}`.charAt(0).toUpperCase() + `${json.weather[0].description}`.slice(1);
+      today.innerHTML = new Date().toDateString().slice(0, 10);
+      time.innerHTML = new Date().getUTCHours() + ':' + new Date().getUTCMinutes();
     })
     .catch(error => {
       console.error('Error:', error);
