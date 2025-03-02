@@ -10,7 +10,7 @@ const cityChange = document.querySelector('.cities');
 searchBtn.addEventListener('click', () => {
   getWeather()
   if (locationInput.value.trim().length > 0) {
-    cityChange.innerHTML = locationInput.value;
+    cityChange.innerHTML = locationInput.value.charAt(0).toUpperCase() + locationInput.value.slice(1);
   }
 });
 
@@ -18,7 +18,7 @@ locationInput.addEventListener('keyup', (e)=> {
   if (e.key === 'Enter') {
     getWeather()
     if (locationInput.value.trim().length > 0) {
-      cityChange.innerHTML = e.target.value;
+      cityChange.innerHTML = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
     }
   }
 })
@@ -66,7 +66,22 @@ function getWeather() {
       temps.innerHTML = `${Math.round(json.main.temp)}<span>°C</span>`;
       description.innerHTML = `${json.weather[0].description}`.charAt(0).toUpperCase() + `${json.weather[0].description}`.slice(1);
       today.innerHTML = new Date().toDateString().slice(0, 10);
-      time.innerHTML = new Date().getUTCHours() + ':' + new Date().getUTCMinutes();
+
+      if(window.currentTimeInterval) {
+        clearInterval(window.currentTimeInterval);
+      }
+      
+      const timezoneOffset = json.timezone / 3600;
+
+      const now = new Date();
+      now.setHours(now.getUTCHours() + timezoneOffset);
+      time.innerHTML = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      window.currentTimeInterval = setInterval(() => {
+        const now = new Date();
+        now.setHours(now.getUTCHours() + timezoneOffset);
+        time.innerHTML = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }, 1000);
     })
     .catch(error => {
       console.error('Error:', error);
